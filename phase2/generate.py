@@ -5,6 +5,7 @@ from pathlib import Path
 p=argparse.ArgumentParser()
 p.add_argument('--inventory',type=Path,default=Path(__file__).with_name('inventory.json'))
 p.add_argument('--target',choices=['primary','standby'],default='primary')
+p.add_argument('--cert-dir',type=Path,help='Absolute certificate directory; default: OUT/certs')
 p.add_argument('--out',type=Path,default=Path(__file__).with_name('generated'))
 a=p.parse_args(); c=json.loads(a.inventory.read_text())
 for k in ('primary_dns','backup_dns','edge','standby_edge','backend_host'):
@@ -13,6 +14,7 @@ if not c['interface'].isalnum(): raise ValueError('Invalid interface')
 if not 1 <= int(c['ttl']) <= 86400: raise ValueError('Invalid TTL')
 if not 1 <= int(c['https_port']) <= 65535: raise ValueError('Invalid port')
 a.out.mkdir(parents=True,exist_ok=True)
+cert_dir=(a.cert_dir or a.out/'certs').resolve()
 address=c['edge'] if a.target=='primary' else c['standby_edge']
 for role in ('primary','backup'):
     text=f"""# Run on {role} DNS Mac. Reload BOTH resolvers after a record change.
@@ -49,8 +51,8 @@ http {{
     server {{
         listen {c['https_port']} ssl;
         server_name app.teamX.test api.teamX.test;
-        ssl_certificate certs/server.crt;
-        ssl_certificate_key certs/server.key;
+        ssl_certificate "{cert_dir}/server.crt";
+        ssl_certificate_key "{cert_dir}/server.key";
         ssl_protocols TLSv1.2 TLSv1.3;
         add_header X-Edge {role} always;
         location / {{

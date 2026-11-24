@@ -1,0 +1,2 @@
+# Preserve raw command exports: trailing TSV fields and protocol CRLF are data.
+phase2/local-evidence/** whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol

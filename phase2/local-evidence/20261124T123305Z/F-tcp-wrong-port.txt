@@ -1,0 +1,4 @@
+$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18444:127.0.0.1 -sS -D - https://app.teamX.test:18444/api/status
+curl: (7) Failed to connect to app.teamX.test port 18444 after 0 ms: Couldn't connect to server
+
+EXIT 7

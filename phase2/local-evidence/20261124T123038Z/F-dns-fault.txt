@@ -1,0 +1,8 @@
+$ /usr/bin/dig @127.0.0.1 -p 15999 app.teamX.test +time=1 +tries=1
+
+; <<>> DiG 9.10.6 <<>> @127.0.0.1 -p 15999 app.teamX.test +time=1 +tries=1
+; (1 server found)
+;; global options: +cmd
+;; connection timed out; no servers could be reached
+
+EXIT 9

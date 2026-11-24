@@ -1,0 +1,13 @@
+Nov 24 18:03:07 dnsmasq[72993]: started, version 2.93 cache disabled
+Nov 24 18:03:07 dnsmasq[72993]: compile time options: IPv6 GNU-getopt no-DBus no-UBus no-i18n no-IDN DHCP DHCPv6 no-Lua TFTP no-conntrack no-ipset no-nftset auth no-DNSSEC loop-detect no-inotify dumpfile
+Nov 24 18:03:07 dnsmasq[72993]: using nameserver 127.0.0.1#15353
+Nov 24 18:03:07 dnsmasq[72993]: using nameserver 127.0.0.1#15354
+Nov 24 18:03:07 dnsmasq[72993]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:03:07 dnsmasq[72993]: forwarded app.teamx.test to 127.0.0.1#15353
+Nov 24 18:03:07 dnsmasq[72993]: reply app.teamx.test is 127.0.0.1
+Nov 24 18:03:07 dnsmasq[72993]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:03:07 dnsmasq[72993]: forwarded app.teamx.test to 127.0.0.1#15353
+Nov 24 18:03:09 dnsmasq[72993]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:03:09 dnsmasq[72993]: forwarded app.teamx.test to 127.0.0.1#15354
+Nov 24 18:03:09 dnsmasq[72993]: reply app.teamx.test is 127.0.0.1
+Nov 24 18:03:57 dnsmasq[72993]: exiting on receipt of SIGTERM

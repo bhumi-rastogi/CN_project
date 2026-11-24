@@ -1,0 +1,6 @@
+$ openssl x509 -req -in /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123038Z/certs/server.csr -CA /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123038Z/certs/ca.crt -CAkey /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123038Z/certs/ca.key -CAcreateserial -days 2 -extfile /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123038Z/certs/leaf.ext -out /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123038Z/certs/server.crt
+Signature ok
+subject=/CN=app.teamX.test
+Getting CA Private Key
+
+EXIT 0

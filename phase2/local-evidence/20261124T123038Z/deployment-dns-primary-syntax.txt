@@ -1,0 +1,4 @@
+$ /usr/local/opt/dnsmasq/sbin/dnsmasq --test --conf-file=/Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/generated/dnsmasq-primary.conf
+dnsmasq: syntax check OK.
+
+EXIT 0

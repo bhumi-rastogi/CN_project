@@ -1,0 +1,47 @@
+2026/11/24 18:01:52 [notice] 72394#0: using the "kqueue" event method
+2026/11/24 18:01:52 [notice] 72394#0: nginx/1.31.10
+2026/11/24 18:01:52 [notice] 72394#0: built by clang 21.0.0 (clang-2100.4.1.1)
+2026/11/24 18:01:52 [notice] 72394#0: OS: Darwin 27.2.0
+2026/11/24 18:01:52 [notice] 72394#0: hw.ncpu: 8
+2026/11/24 18:01:52 [notice] 72394#0: net.inet.tcp.sendspace: 131072
+2026/11/24 18:01:52 [notice] 72394#0: kern.ipc.somaxconn: 128
+2026/11/24 18:01:52 [notice] 72394#0: hw.cachelinesize: 128
+2026/11/24 18:01:52 [notice] 72394#0: getrlimit(RLIMIT_NOFILE): 1048575:9223372036854775807
+2026/11/24 18:01:52 [notice] 72394#0: start worker processes
+2026/11/24 18:01:52 [notice] 72394#0: start worker process 72395
+2026/11/24 18:01:55 [info] 72395#0: *1 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:55 [info] 72395#0: *3 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:55 [info] 72395#0: *5 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:55 [info] 72395#0: *7 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:55 [info] 72395#0: *9 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:55 [info] 72395#0: *11 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:55 [info] 72395#0: *13 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:55 [info] 72395#0: *15 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:55 [info] 72395#0: *17 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:55 [info] 72395#0: *19 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:56 [info] 72395#0: *21 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:02:27 [info] 72395#0: *23 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:02:27 [error] 72395#0: *25 kevent() reported that connect() failed (61: Connection refused) while connecting to upstream, client: 127.0.0.1, server: app.teamx.test, request: "GET /api/status HTTP/1.1", upstream: "http://127.0.0.1:13001/api/status", host: "app.teamX.test:18443"
+2026/11/24 18:02:27 [warn] 72395#0: *25 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: app.teamx.test, request: "GET /api/status HTTP/1.1", upstream: "http://127.0.0.1:13001/api/status", host: "app.teamX.test:18443"
+2026/11/24 18:02:27 [info] 72395#0: *25 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:02:27 [info] 72395#0: *28 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:02:27 [info] 72395#0: *30 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:02:27 [info] 72395#0: *32 kevent() reported that client 127.0.0.1 closed keepalive connection
+2026/11/24 18:02:27 [info] 72395#0: *34 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:02:27 [info] 72395#0: *36 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:02:27 [info] 72395#0: *38 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:02:32 [info] 72395#0: *40 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:02:32 [info] 72395#0: *42 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:02:32 [info] 72395#0: *44 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:02:32 [info] 72395#0: *46 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:02:32 [info] 72395#0: *48 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:02:32 [info] 72395#0: *50 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:02:32 [info] 72395#0: *52 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:02:32 [info] 72395#0: *54 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:02:32 [notice] 72394#0: signal 15 (SIGTERM) received from 72170, exiting
+2026/11/24 18:02:32 [notice] 72395#0: exiting
+2026/11/24 18:02:32 [notice] 72394#0: signal 23 (SIGIO) received from 72395
+2026/11/24 18:02:32 [notice] 72395#0: exit
+2026/11/24 18:02:32 [notice] 72394#0: signal 20 (SIGCHLD) received from 72395
+2026/11/24 18:02:32 [notice] 72394#0: worker process 72395 exited with code 0
+2026/11/24 18:02:32 [notice] 72394#0: exit

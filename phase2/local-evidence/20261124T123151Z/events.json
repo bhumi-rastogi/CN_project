@@ -1,0 +1,505 @@
+[
+  {
+    "time": "2026-11-24T12:31:51.288847+00:00",
+    "name": "scope",
+    "physical_machines": 1,
+    "primary_edge": "127.0.0.1",
+    "standby_edge": "10.3.0.246",
+    "dns_ports": [
+      15353,
+      15354
+    ],
+    "backends": [
+      13001,
+      13002
+    ],
+    "https_port": 18443,
+    "system_dns_modified": false,
+    "firewall_modified": false
+  },
+  {
+    "time": "2026-11-24T12:31:51.338552+00:00",
+    "name": "ca-generation",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:51.352853+00:00",
+    "name": "leaf-request",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:51.360620+00:00",
+    "name": "leaf-signing",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:51.372024+00:00",
+    "name": "deployment-dns-primary-syntax",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:51.379425+00:00",
+    "name": "deployment-dns-backup-syntax",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:51.383660+00:00",
+    "name": "deployment-pf-syntax",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:51.414322+00:00",
+    "name": "local-config-generation",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:51.439862+00:00",
+    "name": "primary-nginx-syntax",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:51.447788+00:00",
+    "name": "standby-nginx-syntax",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:51.654348+00:00",
+    "name": "start",
+    "role": "backend-A",
+    "pid": 72387
+  },
+  {
+    "time": "2026-11-24T12:31:51.863505+00:00",
+    "name": "start",
+    "role": "backend-B",
+    "pid": 72392
+  },
+  {
+    "time": "2026-11-24T12:31:52.077356+00:00",
+    "name": "start",
+    "role": "capture",
+    "pid": 72393
+  },
+  {
+    "time": "2026-11-24T12:31:52.284310+00:00",
+    "name": "start",
+    "role": "primary-edge",
+    "pid": 72394
+  },
+  {
+    "time": "2026-11-24T12:31:52.490903+00:00",
+    "name": "start",
+    "role": "standby-edge",
+    "pid": 72412
+  },
+  {
+    "time": "2026-11-24T12:31:52.699942+00:00",
+    "name": "start",
+    "role": "dns-primary",
+    "pid": 72416
+  },
+  {
+    "time": "2026-11-24T12:31:52.905368+00:00",
+    "name": "start",
+    "role": "dns-backup",
+    "pid": 72417
+  },
+  {
+    "time": "2026-11-24T12:31:53.112760+00:00",
+    "name": "start",
+    "role": "client-failover",
+    "pid": 72418
+  },
+  {
+    "time": "2026-11-24T12:31:53.118377+00:00",
+    "name": "A-before-failure",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:53.119703+00:00",
+    "name": "stop",
+    "role": "dns-primary"
+  },
+  {
+    "time": "2026-11-24T12:31:55.134275+00:00",
+    "name": "A-primary-down-backup-resolution",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:55.345994+00:00",
+    "name": "start",
+    "role": "dns-primary",
+    "pid": 72425
+  },
+  {
+    "time": "2026-11-24T12:31:55.346104+00:00",
+    "name": "A-rehearsal-pass",
+    "limitation": "dnsmasq client forwarder; not native macOS client resolver failover"
+  },
+  {
+    "time": "2026-11-24T12:31:55.551233+00:00",
+    "name": "start",
+    "role": "client-cache",
+    "pid": 72426
+  },
+  {
+    "time": "2026-11-24T12:31:55.557832+00:00",
+    "name": "B-cache-fill",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:55.570266+00:00",
+    "name": "D-baseline-0",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:55.579087+00:00",
+    "name": "D-baseline-1",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:55.587923+00:00",
+    "name": "D-baseline-2",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:55.599064+00:00",
+    "name": "D-baseline-3",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:55.607289+00:00",
+    "name": "D-baseline-4",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:55.615347+00:00",
+    "name": "D-baseline-5",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:55.623461+00:00",
+    "name": "D-baseline-6",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:55.631582+00:00",
+    "name": "D-baseline-7",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:55.639784+00:00",
+    "name": "cache-info",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:55.647807+00:00",
+    "name": "cache-conditional-304",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:55.651630+00:00",
+    "name": "stop",
+    "role": "dns-primary"
+  },
+  {
+    "time": "2026-11-24T12:31:55.855224+00:00",
+    "name": "start",
+    "role": "dns-primary",
+    "pid": 72441
+  },
+  {
+    "time": "2026-11-24T12:31:55.856613+00:00",
+    "name": "stop",
+    "role": "dns-backup"
+  },
+  {
+    "time": "2026-11-24T12:31:56.063582+00:00",
+    "name": "start",
+    "role": "dns-backup",
+    "pid": 72443
+  },
+  {
+    "time": "2026-11-24T12:31:56.069238+00:00",
+    "name": "B-cached-old-answer",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:56.073801+00:00",
+    "name": "B-fresh-new-answer",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:56.082890+00:00",
+    "name": "E-cached-client-primary",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:56.092972+00:00",
+    "name": "E-fresh-client-standby",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:56.097391+00:00",
+    "name": "B-ttl-poll-43",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:58.122539+00:00",
+    "name": "B-ttl-poll-44",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:00.148773+00:00",
+    "name": "B-ttl-poll-45",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:02.168015+00:00",
+    "name": "B-ttl-poll-46",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:04.189746+00:00",
+    "name": "B-ttl-poll-47",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:06.207920+00:00",
+    "name": "B-ttl-poll-48",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:08.234866+00:00",
+    "name": "B-ttl-poll-49",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:10.255603+00:00",
+    "name": "B-ttl-poll-50",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:12.278668+00:00",
+    "name": "B-ttl-poll-51",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:14.304513+00:00",
+    "name": "B-ttl-poll-52",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:16.322104+00:00",
+    "name": "B-ttl-poll-53",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:18.345675+00:00",
+    "name": "B-ttl-poll-54",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:20.361352+00:00",
+    "name": "B-ttl-poll-55",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:22.383897+00:00",
+    "name": "B-ttl-poll-56",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:24.401173+00:00",
+    "name": "B-ttl-poll-57",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:26.421727+00:00",
+    "name": "B-ttl-poll-58",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:26.421808+00:00",
+    "name": "B-expiry-pass",
+    "answer": [
+      [
+        30,
+        "10.3.0.246"
+      ]
+    ]
+  },
+  {
+    "time": "2026-11-24T12:32:26.425678+00:00",
+    "name": "stop",
+    "role": "dns-primary"
+  },
+  {
+    "time": "2026-11-24T12:32:26.634027+00:00",
+    "name": "start",
+    "role": "dns-primary",
+    "pid": 72485
+  },
+  {
+    "time": "2026-11-24T12:32:26.635440+00:00",
+    "name": "stop",
+    "role": "dns-backup"
+  },
+  {
+    "time": "2026-11-24T12:32:26.842652+00:00",
+    "name": "start",
+    "role": "dns-backup",
+    "pid": 72486
+  },
+  {
+    "time": "2026-11-24T12:32:26.847485+00:00",
+    "name": "B-before-cache-flush-still-standby",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:27.066157+00:00",
+    "name": "B-after-cache-flush-primary",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:27.066267+00:00",
+    "name": "B-flush-pass",
+    "limitation": "dnsmasq caching forwarder; not macOS mDNSResponder cache"
+  },
+  {
+    "time": "2026-11-24T12:32:27.070133+00:00",
+    "name": "stop",
+    "role": "backend-A"
+  },
+  {
+    "time": "2026-11-24T12:32:27.087913+00:00",
+    "name": "D-A-down-0",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:27.101499+00:00",
+    "name": "D-A-down-1",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:27.113258+00:00",
+    "name": "D-A-down-2",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:27.123431+00:00",
+    "name": "D-A-down-3",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:27.132654+00:00",
+    "name": "D-A-down-4",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:27.141165+00:00",
+    "name": "D-A-down-5",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:27.149471+00:00",
+    "name": "D-A-down-6",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:27.158413+00:00",
+    "name": "D-A-down-7",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:27.365209+00:00",
+    "name": "start",
+    "role": "backend-A",
+    "pid": 72497
+  },
+  {
+    "time": "2026-11-24T12:32:32.596245+00:00",
+    "name": "D-recovery-0",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:32.613960+00:00",
+    "name": "D-recovery-1",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:32.627088+00:00",
+    "name": "D-recovery-2",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:32.638390+00:00",
+    "name": "D-recovery-3",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:32.649131+00:00",
+    "name": "D-recovery-4",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:32.659244+00:00",
+    "name": "D-recovery-5",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:32.669615+00:00",
+    "name": "D-recovery-6",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:32.680824+00:00",
+    "name": "D-recovery-7",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:32:32.682170+00:00",
+    "name": "stop",
+    "role": "backend-B"
+  },
+  {
+    "time": "2026-11-24T12:32:32.701071+00:00",
+    "name": "stop",
+    "role": "capture"
+  },
+  {
+    "time": "2026-11-24T12:32:32.705028+00:00",
+    "name": "stop",
+    "role": "primary-edge"
+  },
+  {
+    "time": "2026-11-24T12:32:32.708868+00:00",
+    "name": "stop",
+    "role": "standby-edge"
+  },
+  {
+    "time": "2026-11-24T12:32:32.710161+00:00",
+    "name": "stop",
+    "role": "client-failover"
+  },
+  {
+    "time": "2026-11-24T12:32:32.711449+00:00",
+    "name": "stop",
+    "role": "client-cache"
+  },
+  {
+    "time": "2026-11-24T12:32:32.715238+00:00",
+    "name": "stop",
+    "role": "dns-primary"
+  },
+  {
+    "time": "2026-11-24T12:32:32.719053+00:00",
+    "name": "stop",
+    "role": "dns-backup"
+  },
+  {
+    "time": "2026-11-24T12:32:32.720354+00:00",
+    "name": "stop",
+    "role": "backend-A"
+  }
+]

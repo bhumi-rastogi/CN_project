@@ -1,0 +1,5 @@
+Nov 24 18:00:23 dnsmasq[70752]: started, version 2.93 cache disabled
+Nov 24 18:00:23 dnsmasq[70752]: compile time options: IPv6 GNU-getopt no-DBus no-UBus no-i18n no-IDN DHCP DHCPv6 no-Lua TFTP no-conntrack no-ipset no-nftset auth no-DNSSEC loop-detect no-inotify dumpfile
+Nov 24 18:00:23 dnsmasq[70752]: warning: no upstream servers configured
+Nov 24 18:00:23 dnsmasq[70752]: using only locally-known addresses for teamX.test
+Nov 24 18:00:26 dnsmasq[70752]: exiting on receipt of SIGTERM

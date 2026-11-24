@@ -1,5 +1,7 @@
-PASS backend A: real loopback HTTP status, identity, cache headers, ETag/304, 404
-PASS backend B: real loopback HTTP status, identity, cache headers, ETag/304, 404
-PASS primary: both resolvers agree on app/api addresses and TTL
-PASS standby: both resolvers agree on app/api addresses and TTL
-NOT RUN: nginx/dnsmasq syntax (binaries unavailable), PF activation, three-Mac DNS failover/cache/isolation/HA/cutover, screenshots and packet capture.
+PASS: original backend HTTP status, identity, ETag/304 and 404 checks.
+PASS: generator primary/standby record consistency and TTL.
+PASS: generated deployment dnsmasq, nginx and PF syntax.
+PASS: genuine single-Mac forwarding DNS failover, TTL expiry, cache flush, two-listener edge cutover, backend failover/recovery, cache 304 and rehearsed layer faults.
+PASS: real loopback pcapng plus decoded DNS/TCP/TLS exports.
+NOT RUN: separate-Mac native resolver behavior; activated PF and independent-client isolation/rollback; faculty-injected challenge and individual viva.
+Evidence: local-evidence/20261124T123305Z

@@ -1,0 +1,14 @@
+$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123038Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/info
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:30:42 GMT
+Content-Type: application/json
+Content-Length: 69
+Connection: keep-alive
+X-Backend: A
+Cache-Control: max-age=60
+ETag: "3092ff7e802a9e35a7a613446a9585de"
+X-Edge: primary
+
+{"service": "cn-project", "version": 1, "note": "cacheable endpoint"}
+EXIT 0

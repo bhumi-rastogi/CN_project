@@ -1,0 +1,5 @@
+$ /opt/homebrew/bin/nginx -t -p /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123038Z/standby/ -c /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123038Z/standby/nginx.conf
+nginx: the configuration file /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123038Z/standby/nginx.conf syntax is ok
+nginx: configuration file /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123038Z/standby/nginx.conf test is successful
+
+EXIT 0

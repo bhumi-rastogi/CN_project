@@ -1,0 +1,13 @@
+$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123151Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - -H If-None-Match: "3092ff7e802a9e35a7a613446a9585de" https://app.teamX.test:18443/api/info
+HTTP/1.1 304 Not Modified
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:31:55 GMT
+Content-Type: application/json
+Connection: keep-alive
+X-Backend: B
+Cache-Control: max-age=60
+ETag: "3092ff7e802a9e35a7a613446a9585de"
+X-Edge: primary
+
+
+EXIT 0

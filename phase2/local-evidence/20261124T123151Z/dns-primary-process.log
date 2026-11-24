@@ -1,0 +1,30 @@
+Nov 24 18:01:52 dnsmasq[72416]: started, version 2.93 cache disabled
+Nov 24 18:01:52 dnsmasq[72416]: compile time options: IPv6 GNU-getopt no-DBus no-UBus no-i18n no-IDN DHCP DHCPv6 no-Lua TFTP no-conntrack no-ipset no-nftset auth no-DNSSEC loop-detect no-inotify dumpfile
+Nov 24 18:01:52 dnsmasq[72416]: warning: no upstream servers configured
+Nov 24 18:01:52 dnsmasq[72416]: using only locally-known addresses for teamX.test
+Nov 24 18:01:53 dnsmasq[72416]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:01:53 dnsmasq[72416]: config app.teamx.test is 127.0.0.1
+Nov 24 18:01:53 dnsmasq[72416]: exiting on receipt of SIGTERM
+Nov 24 18:01:55 dnsmasq[72425]: started, version 2.93 cache disabled
+Nov 24 18:01:55 dnsmasq[72425]: compile time options: IPv6 GNU-getopt no-DBus no-UBus no-i18n no-IDN DHCP DHCPv6 no-Lua TFTP no-conntrack no-ipset no-nftset auth no-DNSSEC loop-detect no-inotify dumpfile
+Nov 24 18:01:55 dnsmasq[72425]: warning: no upstream servers configured
+Nov 24 18:01:55 dnsmasq[72425]: using only locally-known addresses for teamX.test
+Nov 24 18:01:55 dnsmasq[72425]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:01:55 dnsmasq[72425]: config app.teamx.test is 127.0.0.1
+Nov 24 18:01:55 dnsmasq[72425]: exiting on receipt of SIGTERM
+Nov 24 18:01:55 dnsmasq[72441]: started, version 2.93 cache disabled
+Nov 24 18:01:55 dnsmasq[72441]: compile time options: IPv6 GNU-getopt no-DBus no-UBus no-i18n no-IDN DHCP DHCPv6 no-Lua TFTP no-conntrack no-ipset no-nftset auth no-DNSSEC loop-detect no-inotify dumpfile
+Nov 24 18:01:55 dnsmasq[72441]: warning: no upstream servers configured
+Nov 24 18:01:55 dnsmasq[72441]: using only locally-known addresses for teamX.test
+Nov 24 18:01:56 dnsmasq[72441]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:01:56 dnsmasq[72441]: config app.teamx.test is 10.3.0.246
+Nov 24 18:02:26 dnsmasq[72441]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:02:26 dnsmasq[72441]: config app.teamx.test is 10.3.0.246
+Nov 24 18:02:26 dnsmasq[72441]: exiting on receipt of SIGTERM
+Nov 24 18:02:26 dnsmasq[72485]: started, version 2.93 cache disabled
+Nov 24 18:02:26 dnsmasq[72485]: compile time options: IPv6 GNU-getopt no-DBus no-UBus no-i18n no-IDN DHCP DHCPv6 no-Lua TFTP no-conntrack no-ipset no-nftset auth no-DNSSEC loop-detect no-inotify dumpfile
+Nov 24 18:02:26 dnsmasq[72485]: warning: no upstream servers configured
+Nov 24 18:02:26 dnsmasq[72485]: using only locally-known addresses for teamX.test
+Nov 24 18:02:27 dnsmasq[72485]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:02:27 dnsmasq[72485]: config app.teamx.test is 127.0.0.1
+Nov 24 18:02:32 dnsmasq[72485]: exiting on receipt of SIGTERM

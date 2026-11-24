@@ -1,6 +1,6 @@
 # Phase 2: Harden, Recover, and Troubleshoot
 
-This extends the existing TeamX three-Mac Phase 1 system. Generated configurations and procedures are prepared; multi-Mac demonstrations are **not yet performed**. Never present expected output as an observation. Phase 1 files are preserved, including their inconsistent historical IP examples.
+This extends the existing TeamX three-Mac Phase 1 system. Generated configurations and procedures are prepared, and genuine single-Mac service rehearsals are recorded in [the viewer](demonstrations.html). Multi-Mac demonstrations are **not yet performed**. Never present expected output as an observation. Phase 1 files are preserved, including their inconsistent historical IP examples.
 
 ## Inventory and architecture
 
@@ -16,9 +16,9 @@ Verify IPs, prefix, gateway, interface and MAC with `ifconfig`, `route -n get de
 
 ## Prerequisites and launch
 
-Install Python 3, dnsmasq, nginx, OpenSSL and Wireshark using the Macs' normal package setup. Save original service configs and resolver settings first. Avoid conflicting existing listeners. Use separate runtime directories for primary/standby nginx containing `logs/` and `certs/`. Preserve the Phase 1 CA and certificate if valid for BOTH app.teamX.test and api.teamX.test. Otherwise issue a new SAN certificate using your local CA; keep all private keys out of Git. Copy only the edge leaf key/certificate to each edge, and distribute the public CA certificate to clients. Never distribute the CA private key.
+Install Python 3, dnsmasq, nginx, OpenSSL and Wireshark using the Macs' normal package setup. Save original service configs and resolver settings first. Avoid conflicting existing listeners. Use separate runtime directories for primary/standby nginx containing `logs/`; pass each host’s absolute certificate directory to the generator using `--cert-dir /absolute/path/certs`. Preserve the Phase 1 CA and certificate if valid for BOTH app.teamX.test and api.teamX.test. Otherwise issue a new SAN certificate using your local CA; keep all private keys out of Git. Copy only the edge leaf key/certificate to each edge, and distribute the public CA certificate to clients. Never distribute the CA private key.
 
-Run `nginx -t -p /absolute/runtime/ -c /absolute/path/nginx-primary.conf` before launching with the same arguments and without `-t`. On standby use nginx-standby.conf and a separate runtime. Relative certificate paths resolve under the nginx prefix. Validate HTTPS with `curl --cacert /path/ca.crt https://app.teamX.test:8443/api/status`; use the system trust store for the browser demonstration. No `-k`.
+Run `nginx -t -p /absolute/runtime/ -c /absolute/path/nginx-primary.conf` before launching with the same arguments and without `-t`. On standby use nginx-standby.conf and a separate runtime. Certificate paths are absolute in generated configs. By default they point to generated/certs; use --cert-dir to select another directory. Generate configs on each host after choosing its paths. Validate HTTPS with `curl --cacert /path/ca.crt https://app.teamX.test:8443/api/status`; use the system trust store for the browser demonstration. No `-k`.
 
 On Laptop 3, from repository root, launch in two terminals:
 
@@ -85,3 +85,8 @@ Final sequence: topology/inventory → LAN reachability → DNS → trusted HTTP
 ## Learning notes
 
 A: DNS redundancy protects name service, independently from application health. B: TTL limits cache freshness but does not relocate established connections. C: Backend network policy enforces edge access and must be verified from a separate host. D: Passive retries improve backend availability without protecting against shared host or edge failure. E: DNS cutover requires consistent records and certificate validity on both edges. F: Layer-by-layer observations distinguish lookup, transport, trust and application faults.
+
+
+## Reproduce the genuine local rehearsal
+
+Run `python3 phase2/local_demo.py` on macOS with nginx at /opt/homebrew/bin/nginx, dnsmasq at /usr/local/opt/dnsmasq/sbin/dnsmasq, OpenSSL, Python and Wireshark installed. It uses ports 13001/13002, 15353–15356 and 18443 and the en0 address. It captures only those test ports on loopback, creates a temporary CA, and stops its own services afterward. No system DNS or firewall changes are made. Runtime private keys are ignored by Git. Each run writes a timestamped evidence folder. Run `python3 phase2/render_demo.py` to rebuild the HTML viewer from the most recent complete rehearsal. A local rehearsal cannot establish separate-Mac behavior.

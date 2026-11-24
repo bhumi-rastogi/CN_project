@@ -1,0 +1,18 @@
+$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123038Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 502 Bad Gateway
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:31:26 GMT
+Content-Type: text/html
+Content-Length: 158
+Connection: keep-alive
+X-Edge: primary
+
+<html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+<hr><center>nginx/1.31.10</center>
+</body>
+</html>
+
+EXIT 0

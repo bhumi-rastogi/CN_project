@@ -1,0 +1,49 @@
+Nov 24 18:00:42 dnsmasq[71234]: started, version 2.93 cachesize 100
+Nov 24 18:00:42 dnsmasq[71234]: compile time options: IPv6 GNU-getopt no-DBus no-UBus no-i18n no-IDN DHCP DHCPv6 no-Lua TFTP no-conntrack no-ipset no-nftset auth no-DNSSEC loop-detect no-inotify dumpfile
+Nov 24 18:00:42 dnsmasq[71234]: using nameserver 127.0.0.1#15353
+Nov 24 18:00:42 dnsmasq[71234]: cleared cache
+Nov 24 18:00:42 dnsmasq[71234]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:00:42 dnsmasq[71234]: forwarded app.teamx.test to 127.0.0.1#15353
+Nov 24 18:00:42 dnsmasq[71234]: reply app.teamx.test is 127.0.0.1
+Nov 24 18:00:43 dnsmasq[71234]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:00:43 dnsmasq[71234]: cached app.teamx.test is 127.0.0.1
+Nov 24 18:00:43 dnsmasq[71234]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:00:43 dnsmasq[71234]: cached app.teamx.test is 127.0.0.1
+Nov 24 18:00:45 dnsmasq[71234]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:00:45 dnsmasq[71234]: cached app.teamx.test is 127.0.0.1
+Nov 24 18:00:47 dnsmasq[71234]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:00:47 dnsmasq[71234]: cached app.teamx.test is 127.0.0.1
+Nov 24 18:00:49 dnsmasq[71234]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:00:49 dnsmasq[71234]: cached app.teamx.test is 127.0.0.1
+Nov 24 18:00:51 dnsmasq[71234]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:00:51 dnsmasq[71234]: cached app.teamx.test is 127.0.0.1
+Nov 24 18:00:53 dnsmasq[71234]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:00:53 dnsmasq[71234]: cached app.teamx.test is 127.0.0.1
+Nov 24 18:00:55 dnsmasq[71234]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:00:55 dnsmasq[71234]: cached app.teamx.test is 127.0.0.1
+Nov 24 18:00:57 dnsmasq[71234]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:00:57 dnsmasq[71234]: cached app.teamx.test is 127.0.0.1
+Nov 24 18:00:59 dnsmasq[71234]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:00:59 dnsmasq[71234]: cached app.teamx.test is 127.0.0.1
+Nov 24 18:01:01 dnsmasq[71234]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:01:01 dnsmasq[71234]: cached app.teamx.test is 127.0.0.1
+Nov 24 18:01:03 dnsmasq[71234]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:01:03 dnsmasq[71234]: cached app.teamx.test is 127.0.0.1
+Nov 24 18:01:05 dnsmasq[71234]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:01:05 dnsmasq[71234]: cached app.teamx.test is 127.0.0.1
+Nov 24 18:01:07 dnsmasq[71234]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:01:07 dnsmasq[71234]: cached app.teamx.test is 127.0.0.1
+Nov 24 18:01:09 dnsmasq[71234]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:01:09 dnsmasq[71234]: cached app.teamx.test is 127.0.0.1
+Nov 24 18:01:11 dnsmasq[71234]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:01:11 dnsmasq[71234]: cached app.teamx.test is 127.0.0.1
+Nov 24 18:01:13 dnsmasq[71234]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:01:13 dnsmasq[71234]: forwarded app.teamx.test to 127.0.0.1#15353
+Nov 24 18:01:13 dnsmasq[71234]: reply app.teamx.test is 10.3.0.246
+Nov 24 18:01:14 dnsmasq[71234]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:01:14 dnsmasq[71234]: cached app.teamx.test is 10.3.0.246
+Nov 24 18:01:14 dnsmasq[71234]: cleared cache
+Nov 24 18:01:14 dnsmasq[71234]: query[A] app.teamx.test from 127.0.0.1
+Nov 24 18:01:14 dnsmasq[71234]: forwarded app.teamx.test to 127.0.0.1#15353
+Nov 24 18:01:14 dnsmasq[71234]: reply app.teamx.test is 127.0.0.1
+Nov 24 18:01:26 dnsmasq[71234]: exiting on receipt of SIGTERM

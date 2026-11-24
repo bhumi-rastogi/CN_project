@@ -1,0 +1,8 @@
+$ openssl req -x509 -newkey rsa:2048 -nodes -days 2 -config /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123151Z/certs/ca.conf -keyout /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123151Z/certs/ca.key -out /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123151Z/certs/ca.crt
+Generating a 2048 bit RSA private key
+................................................+++++
+.....+++++
+writing new private key to '/Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123151Z/certs/ca.key'
+-----
+
+EXIT 0

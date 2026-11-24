@@ -1,0 +1,18 @@
+2026/11/24 18:00:22 [notice] 70736#0: using the "kqueue" event method
+2026/11/24 18:00:22 [notice] 70736#0: nginx/1.31.10
+2026/11/24 18:00:22 [notice] 70736#0: built by clang 21.0.0 (clang-2100.4.1.1)
+2026/11/24 18:00:22 [notice] 70736#0: OS: Darwin 27.2.0
+2026/11/24 18:00:22 [notice] 70736#0: hw.ncpu: 8
+2026/11/24 18:00:22 [notice] 70736#0: net.inet.tcp.sendspace: 131072
+2026/11/24 18:00:22 [notice] 70736#0: kern.ipc.somaxconn: 128
+2026/11/24 18:00:22 [notice] 70736#0: hw.cachelinesize: 128
+2026/11/24 18:00:22 [notice] 70736#0: getrlimit(RLIMIT_NOFILE): 1048575:9223372036854775807
+2026/11/24 18:00:22 [notice] 70736#0: start worker processes
+2026/11/24 18:00:22 [notice] 70736#0: start worker process 70737
+2026/11/24 18:00:26 [notice] 70736#0: signal 15 (SIGTERM) received from 70504, exiting
+2026/11/24 18:00:26 [notice] 70737#0: exiting
+2026/11/24 18:00:26 [notice] 70736#0: signal 23 (SIGIO) received from 70737
+2026/11/24 18:00:26 [notice] 70737#0: exit
+2026/11/24 18:00:26 [notice] 70736#0: signal 20 (SIGCHLD) received from 70737
+2026/11/24 18:00:26 [notice] 70736#0: worker process 70737 exited with code 0
+2026/11/24 18:00:26 [notice] 70736#0: exit

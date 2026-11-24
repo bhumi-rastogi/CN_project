@@ -1,0 +1,1 @@
+2026-11-24T18:03:12+05:30 client=10.3.0.246 edge=standby status=200 upstream=127.0.0.1:13001 upstream_status=200 request_time=0.001 request="GET /api/status HTTP/1.1"

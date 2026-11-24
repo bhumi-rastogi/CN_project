@@ -1,0 +1,556 @@
+[
+  {
+    "time": "2026-11-24T12:30:38.655028+00:00",
+    "name": "scope",
+    "physical_machines": 1,
+    "primary_edge": "127.0.0.1",
+    "standby_edge": "10.3.0.246",
+    "dns_ports": [
+      15353,
+      15354
+    ],
+    "backends": [
+      13001,
+      13002
+    ],
+    "https_port": 18443,
+    "system_dns_modified": false,
+    "firewall_modified": false
+  },
+  {
+    "time": "2026-11-24T12:30:38.700249+00:00",
+    "name": "ca-generation",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:38.739987+00:00",
+    "name": "leaf-request",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:38.747375+00:00",
+    "name": "leaf-signing",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:38.755516+00:00",
+    "name": "deployment-dns-primary-syntax",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:38.762466+00:00",
+    "name": "deployment-dns-backup-syntax",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:38.765820+00:00",
+    "name": "deployment-pf-syntax",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:38.794505+00:00",
+    "name": "local-config-generation",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:38.802965+00:00",
+    "name": "primary-nginx-syntax",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:38.810472+00:00",
+    "name": "standby-nginx-syntax",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:39.012818+00:00",
+    "name": "start",
+    "role": "backend-A",
+    "pid": 71194
+  },
+  {
+    "time": "2026-11-24T12:30:39.219890+00:00",
+    "name": "start",
+    "role": "backend-B",
+    "pid": 71195
+  },
+  {
+    "time": "2026-11-24T12:30:39.426387+00:00",
+    "name": "start",
+    "role": "capture",
+    "pid": 71196
+  },
+  {
+    "time": "2026-11-24T12:30:39.635028+00:00",
+    "name": "start",
+    "role": "primary-edge",
+    "pid": 71197
+  },
+  {
+    "time": "2026-11-24T12:30:39.842911+00:00",
+    "name": "start",
+    "role": "standby-edge",
+    "pid": 71211
+  },
+  {
+    "time": "2026-11-24T12:30:40.046326+00:00",
+    "name": "start",
+    "role": "dns-primary",
+    "pid": 71220
+  },
+  {
+    "time": "2026-11-24T12:30:40.252451+00:00",
+    "name": "start",
+    "role": "dns-backup",
+    "pid": 71221
+  },
+  {
+    "time": "2026-11-24T12:30:40.460016+00:00",
+    "name": "start",
+    "role": "client-failover",
+    "pid": 71222
+  },
+  {
+    "time": "2026-11-24T12:30:40.465472+00:00",
+    "name": "A-before-failure",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:40.466787+00:00",
+    "name": "stop",
+    "role": "dns-primary"
+  },
+  {
+    "time": "2026-11-24T12:30:42.484155+00:00",
+    "name": "A-primary-down-backup-resolution",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:42.697917+00:00",
+    "name": "start",
+    "role": "dns-primary",
+    "pid": 71233
+  },
+  {
+    "time": "2026-11-24T12:30:42.698013+00:00",
+    "name": "A-rehearsal-pass",
+    "limitation": "dnsmasq client forwarder; not native macOS client resolver failover"
+  },
+  {
+    "time": "2026-11-24T12:30:42.906126+00:00",
+    "name": "start",
+    "role": "client-cache",
+    "pid": 71234
+  },
+  {
+    "time": "2026-11-24T12:30:42.911799+00:00",
+    "name": "B-cache-fill",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:42.924481+00:00",
+    "name": "D-baseline-0",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:42.934191+00:00",
+    "name": "D-baseline-1",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:42.942718+00:00",
+    "name": "D-baseline-2",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:42.950577+00:00",
+    "name": "D-baseline-3",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:42.959165+00:00",
+    "name": "D-baseline-4",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:42.967549+00:00",
+    "name": "D-baseline-5",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:42.975514+00:00",
+    "name": "D-baseline-6",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:42.983409+00:00",
+    "name": "D-baseline-7",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:42.992351+00:00",
+    "name": "cache-info",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:43.000439+00:00",
+    "name": "cache-conditional-304",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:43.001753+00:00",
+    "name": "stop",
+    "role": "dns-primary"
+  },
+  {
+    "time": "2026-11-24T12:30:43.206518+00:00",
+    "name": "start",
+    "role": "dns-primary",
+    "pid": 71246
+  },
+  {
+    "time": "2026-11-24T12:30:43.215469+00:00",
+    "name": "stop",
+    "role": "dns-backup"
+  },
+  {
+    "time": "2026-11-24T12:30:43.422675+00:00",
+    "name": "start",
+    "role": "dns-backup",
+    "pid": 71247
+  },
+  {
+    "time": "2026-11-24T12:30:43.428340+00:00",
+    "name": "B-cached-old-answer",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:43.433973+00:00",
+    "name": "B-fresh-new-answer",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:43.442958+00:00",
+    "name": "E-cached-client-primary",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:43.452503+00:00",
+    "name": "E-fresh-client-standby",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:43.457370+00:00",
+    "name": "B-ttl-poll-43",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:45.477942+00:00",
+    "name": "B-ttl-poll-44",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:47.493690+00:00",
+    "name": "B-ttl-poll-45",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:49.511824+00:00",
+    "name": "B-ttl-poll-46",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:51.532665+00:00",
+    "name": "B-ttl-poll-47",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:53.553868+00:00",
+    "name": "B-ttl-poll-48",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:55.569458+00:00",
+    "name": "B-ttl-poll-49",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:57.585623+00:00",
+    "name": "B-ttl-poll-50",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:30:59.607888+00:00",
+    "name": "B-ttl-poll-51",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:01.633899+00:00",
+    "name": "B-ttl-poll-52",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:03.655089+00:00",
+    "name": "B-ttl-poll-53",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:05.676366+00:00",
+    "name": "B-ttl-poll-54",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:07.696623+00:00",
+    "name": "B-ttl-poll-55",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:09.721238+00:00",
+    "name": "B-ttl-poll-56",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:11.733907+00:00",
+    "name": "B-ttl-poll-57",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:13.760147+00:00",
+    "name": "B-ttl-poll-58",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:13.760254+00:00",
+    "name": "B-expiry-pass",
+    "answer": [
+      [
+        30,
+        "10.3.0.246"
+      ]
+    ]
+  },
+  {
+    "time": "2026-11-24T12:31:13.764081+00:00",
+    "name": "stop",
+    "role": "dns-primary"
+  },
+  {
+    "time": "2026-11-24T12:31:13.972333+00:00",
+    "name": "start",
+    "role": "dns-primary",
+    "pid": 71289
+  },
+  {
+    "time": "2026-11-24T12:31:13.973748+00:00",
+    "name": "stop",
+    "role": "dns-backup"
+  },
+  {
+    "time": "2026-11-24T12:31:14.181227+00:00",
+    "name": "start",
+    "role": "dns-backup",
+    "pid": 71290
+  },
+  {
+    "time": "2026-11-24T12:31:14.186675+00:00",
+    "name": "B-before-cache-flush-still-standby",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:14.405072+00:00",
+    "name": "B-after-cache-flush-primary",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:14.405169+00:00",
+    "name": "B-flush-pass",
+    "limitation": "dnsmasq caching forwarder; not macOS mDNSResponder cache"
+  },
+  {
+    "time": "2026-11-24T12:31:14.409034+00:00",
+    "name": "stop",
+    "role": "backend-A"
+  },
+  {
+    "time": "2026-11-24T12:31:14.425987+00:00",
+    "name": "D-A-down-0",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:14.439836+00:00",
+    "name": "D-A-down-1",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:14.450707+00:00",
+    "name": "D-A-down-2",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:14.461340+00:00",
+    "name": "D-A-down-3",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:14.470949+00:00",
+    "name": "D-A-down-4",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:14.481570+00:00",
+    "name": "D-A-down-5",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:14.491277+00:00",
+    "name": "D-A-down-6",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:14.501037+00:00",
+    "name": "D-A-down-7",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:14.708293+00:00",
+    "name": "start",
+    "role": "backend-A",
+    "pid": 71302
+  },
+  {
+    "time": "2026-11-24T12:31:19.944027+00:00",
+    "name": "D-recovery-0",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:20.018460+00:00",
+    "name": "D-recovery-1",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:20.043605+00:00",
+    "name": "D-recovery-2",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:20.056244+00:00",
+    "name": "D-recovery-3",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:20.067326+00:00",
+    "name": "D-recovery-4",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:20.076673+00:00",
+    "name": "D-recovery-5",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:20.087198+00:00",
+    "name": "D-recovery-6",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:20.097998+00:00",
+    "name": "D-recovery-7",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:20.098062+00:00",
+    "name": "D-backend-ha-pass"
+  },
+  {
+    "time": "2026-11-24T12:31:21.111480+00:00",
+    "name": "F-dns-fault",
+    "exit_code": 9
+  },
+  {
+    "time": "2026-11-24T12:31:21.131746+00:00",
+    "name": "F-tcp-wrong-port",
+    "exit_code": 7
+  },
+  {
+    "time": "2026-11-24T12:31:21.205807+00:00",
+    "name": "F-tls-untrusted-ca",
+    "exit_code": 60
+  },
+  {
+    "time": "2026-11-24T12:31:21.209723+00:00",
+    "name": "stop",
+    "role": "backend-A"
+  },
+  {
+    "time": "2026-11-24T12:31:21.213564+00:00",
+    "name": "stop",
+    "role": "backend-B"
+  },
+  {
+    "time": "2026-11-24T12:31:21.228177+00:00",
+    "name": "F-application-both-backends-down",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:21.435522+00:00",
+    "name": "start",
+    "role": "backend-A",
+    "pid": 71320
+  },
+  {
+    "time": "2026-11-24T12:31:21.644810+00:00",
+    "name": "start",
+    "role": "backend-B",
+    "pid": 71321
+  },
+  {
+    "time": "2026-11-24T12:31:26.868591+00:00",
+    "name": "F-recovered",
+    "exit_code": 0
+  },
+  {
+    "time": "2026-11-24T12:31:26.907552+00:00",
+    "name": "stop",
+    "role": "capture"
+  },
+  {
+    "time": "2026-11-24T12:31:26.911456+00:00",
+    "name": "stop",
+    "role": "primary-edge"
+  },
+  {
+    "time": "2026-11-24T12:31:26.915317+00:00",
+    "name": "stop",
+    "role": "standby-edge"
+  },
+  {
+    "time": "2026-11-24T12:31:26.919158+00:00",
+    "name": "stop",
+    "role": "client-failover"
+  },
+  {
+    "time": "2026-11-24T12:31:26.920473+00:00",
+    "name": "stop",
+    "role": "client-cache"
+  },
+  {
+    "time": "2026-11-24T12:31:26.921752+00:00",
+    "name": "stop",
+    "role": "dns-primary"
+  },
+  {
+    "time": "2026-11-24T12:31:26.925570+00:00",
+    "name": "stop",
+    "role": "dns-backup"
+  },
+  {
+    "time": "2026-11-24T12:31:26.926886+00:00",
+    "name": "stop",
+    "role": "backend-A"
+  },
+  {
+    "time": "2026-11-24T12:31:26.928167+00:00",
+    "name": "stop",
+    "role": "backend-B"
+  }
+]

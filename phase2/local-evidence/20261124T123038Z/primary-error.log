@@ -1,0 +1,55 @@
+2026/11/24 18:00:39 [notice] 71197#0: using the "kqueue" event method
+2026/11/24 18:00:39 [notice] 71197#0: nginx/1.31.10
+2026/11/24 18:00:39 [notice] 71197#0: built by clang 21.0.0 (clang-2100.4.1.1)
+2026/11/24 18:00:39 [notice] 71197#0: OS: Darwin 27.2.0
+2026/11/24 18:00:39 [notice] 71197#0: hw.ncpu: 8
+2026/11/24 18:00:39 [notice] 71197#0: net.inet.tcp.sendspace: 131072
+2026/11/24 18:00:39 [notice] 71197#0: kern.ipc.somaxconn: 128
+2026/11/24 18:00:39 [notice] 71197#0: hw.cachelinesize: 128
+2026/11/24 18:00:39 [notice] 71197#0: getrlimit(RLIMIT_NOFILE): 1048575:9223372036854775807
+2026/11/24 18:00:39 [notice] 71197#0: start worker processes
+2026/11/24 18:00:39 [notice] 71197#0: start worker process 71198
+2026/11/24 18:00:42 [info] 71198#0: *1 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:00:42 [info] 71198#0: *3 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:00:42 [info] 71198#0: *5 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:00:42 [info] 71198#0: *7 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:00:42 [info] 71198#0: *9 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:00:42 [info] 71198#0: *11 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:00:42 [info] 71198#0: *13 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:00:42 [info] 71198#0: *15 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:00:42 [info] 71198#0: *17 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:00:42 [info] 71198#0: *19 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:00:43 [info] 71198#0: *21 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:14 [info] 71198#0: *23 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:14 [error] 71198#0: *25 kevent() reported that connect() failed (61: Connection refused) while connecting to upstream, client: 127.0.0.1, server: app.teamx.test, request: "GET /api/status HTTP/1.1", upstream: "http://127.0.0.1:13001/api/status", host: "app.teamX.test:18443"
+2026/11/24 18:01:14 [warn] 71198#0: *25 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: app.teamx.test, request: "GET /api/status HTTP/1.1", upstream: "http://127.0.0.1:13001/api/status", host: "app.teamX.test:18443"
+2026/11/24 18:01:14 [info] 71198#0: *25 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:14 [info] 71198#0: *28 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:14 [info] 71198#0: *30 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:14 [info] 71198#0: *32 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:14 [info] 71198#0: *34 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:14 [info] 71198#0: *36 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:14 [info] 71198#0: *38 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:19 [info] 71198#0: *40 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:20 [info] 71198#0: *42 kevent() reported that client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:20 [info] 71198#0: *44 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:20 [info] 71198#0: *46 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:20 [info] 71198#0: *48 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:20 [info] 71198#0: *50 kevent() reported that client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:20 [info] 71198#0: *52 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:20 [info] 71198#0: *54 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:21 [info] 71198#0: *56 SSL_do_handshake() failed (SSL: error:0A000418:SSL routines::tlsv1 alert unknown ca:SSL alert number 48) while SSL handshaking, client: 127.0.0.1, server: 127.0.0.1:18443
+2026/11/24 18:01:21 [error] 71198#0: *57 kevent() reported that connect() failed (61: Connection refused) while connecting to upstream, client: 127.0.0.1, server: app.teamx.test, request: "GET /api/status HTTP/1.1", upstream: "http://127.0.0.1:13002/api/status", host: "app.teamX.test:18443"
+2026/11/24 18:01:21 [warn] 71198#0: *57 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: app.teamx.test, request: "GET /api/status HTTP/1.1", upstream: "http://127.0.0.1:13002/api/status", host: "app.teamX.test:18443"
+2026/11/24 18:01:21 [error] 71198#0: *57 kevent() reported that connect() failed (61: Connection refused) while connecting to upstream, client: 127.0.0.1, server: app.teamx.test, request: "GET /api/status HTTP/1.1", upstream: "http://127.0.0.1:13001/api/status", host: "app.teamX.test:18443"
+2026/11/24 18:01:21 [warn] 71198#0: *57 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: app.teamx.test, request: "GET /api/status HTTP/1.1", upstream: "http://127.0.0.1:13001/api/status", host: "app.teamX.test:18443"
+2026/11/24 18:01:21 [info] 71198#0: *57 kevent() reported that client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:26 [error] 71198#0: *60 no live upstreams while connecting to upstream, client: 127.0.0.1, server: app.teamx.test, request: "GET /api/status HTTP/1.1", upstream: "http://backend/api/status", host: "app.teamX.test:18443"
+2026/11/24 18:01:26 [info] 71198#0: *60 client 127.0.0.1 closed keepalive connection
+2026/11/24 18:01:26 [notice] 71197#0: signal 15 (SIGTERM) received from 70977, exiting
+2026/11/24 18:01:26 [notice] 71198#0: exiting
+2026/11/24 18:01:26 [notice] 71197#0: signal 23 (SIGIO) received from 71198
+2026/11/24 18:01:26 [notice] 71198#0: exit
+2026/11/24 18:01:26 [notice] 71197#0: signal 20 (SIGCHLD) received from 71198
+2026/11/24 18:01:26 [notice] 71197#0: worker process 71198 exited with code 0
+2026/11/24 18:01:26 [notice] 71197#0: exit

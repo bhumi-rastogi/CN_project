@@ -1,0 +1,933 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TeamX — genuine local demonstrations</title><style>body{font:16px system-ui;max-width:1100px;margin:40px auto;padding:0 24px;background:#101721;color:#edf2f7}h1{font-size:36px}p{line-height:1.6;color:#cbd5e1}.scope{padding:20px;background:#27354a;border-left:5px solid #f5bc53;border-radius:8px}details{margin:14px 0;padding:16px;background:#1c2838;border-radius:8px}summary{cursor:pointer;font-weight:650}pre{font:13px ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;color:#c4edd9}a{color:#93c5fd}table{border-collapse:collapse;width:100%}td,th{text-align:left;border-bottom:1px solid #425267;padding:12px}h2{margin-top:36px}</style><h1>TeamX: Phase 2 demonstrations</h1><div class="scope"><strong>REAL SINGLE-MAC REHEARSAL</strong><p>These are actual dnsmasq, Nginx, Python backend and Wireshark results from one physical Mac. Separate processes represent service roles. This is not evidence of separate physical Macs, macOS client DNS failover, activated firewall isolation or a faculty-injected fault.</p></div><p>Run: 20261124T123305Z · <a href="local-evidence/20261124T123305Z/single-mac.pcapng">Open genuine packet capture</a> · <a href="local-evidence/20261124T123305Z/events.json">Timestamped events</a></p><h2>A · Backup DNS</h2><p>The forwarding client resolved through primary DNS, then continued through backup after primary stopped. A single-attempt initial test timed out; enabling client retransmissions produced failover after roughly two seconds. This tests a dnsmasq forwarder, not the macOS native resolver.</p><details><summary>Primary available</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15355 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15355 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 16689
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		30	IN	A	127.0.0.1
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#15355(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:07 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><details><summary>Primary stopped: backup resolved</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15355 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15355 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 11454
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		30	IN	A	127.0.0.1
+
+;; Query time: 1 msec
+;; SERVER: 127.0.0.1#15355(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:09 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><h2>B · TTL and cache flush</h2><p>A real caching forwarder retained the original IP after the authoritative record changed. Polling showed the old answer until expiry, then the new IP. SIGHUP flushed that forwarder’s cache; system DNS settings were not modified.</p><details><summary>Fill cache: TTL 30</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 61750
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		30	IN	A	127.0.0.1
+
+;; Query time: 1 msec
+;; SERVER: 127.0.0.1#15356(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:11 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><details><summary>Cached old answer after record change</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 14534
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		29	IN	A	127.0.0.1
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#15356(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:12 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><details><summary>Fresh answer points at standby</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15353 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15353 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 55683
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		30	IN	A	10.3.0.246
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#15353(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:12 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><details><summary>Before explicit cache flush</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 231
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		29	IN	A	10.3.0.246
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#15356(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:43 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><details><summary>After explicit cache flush</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 14500
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		30	IN	A	127.0.0.1
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#15356(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:43 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><details><summary>TTL observation 2026-11-24T12:33:12.307804+00:00</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 30400
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		29	IN	A	127.0.0.1
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#15356(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:12 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><details><summary>TTL observation 2026-11-24T12:33:14.325915+00:00</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 19107
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		27	IN	A	127.0.0.1
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#15356(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:14 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><details><summary>TTL observation 2026-11-24T12:33:16.347830+00:00</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 13687
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		25	IN	A	127.0.0.1
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#15356(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:16 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><details><summary>TTL observation 2026-11-24T12:33:18.355955+00:00</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 52283
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		23	IN	A	127.0.0.1
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#15356(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:18 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><details><summary>TTL observation 2026-11-24T12:33:20.379897+00:00</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 18561
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		21	IN	A	127.0.0.1
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#15356(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:20 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><details><summary>TTL observation 2026-11-24T12:33:22.399429+00:00</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 753
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		19	IN	A	127.0.0.1
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#15356(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:22 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><details><summary>TTL observation 2026-11-24T12:33:24.421951+00:00</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 13481
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		17	IN	A	127.0.0.1
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#15356(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:24 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><details><summary>TTL observation 2026-11-24T12:33:26.440156+00:00</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 14023
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		15	IN	A	127.0.0.1
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#15356(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:26 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><details><summary>TTL observation 2026-11-24T12:33:28.449364+00:00</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 35978
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		13	IN	A	127.0.0.1
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#15356(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:28 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><details><summary>TTL observation 2026-11-24T12:33:30.472181+00:00</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 1035
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		11	IN	A	127.0.0.1
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#15356(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:30 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><details><summary>TTL observation 2026-11-24T12:33:32.495530+00:00</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 37723
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		9	IN	A	127.0.0.1
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#15356(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:32 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><details><summary>TTL observation 2026-11-24T12:33:34.519526+00:00</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 45396
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		7	IN	A	127.0.0.1
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#15356(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:34 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><details><summary>TTL observation 2026-11-24T12:33:36.535576+00:00</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 41509
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		5	IN	A	127.0.0.1
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#15356(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:36 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><details><summary>TTL observation 2026-11-24T12:33:38.561502+00:00</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 21331
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		3	IN	A	127.0.0.1
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#15356(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:38 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><details><summary>TTL observation 2026-11-24T12:33:40.585753+00:00</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 30846
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		1	IN	A	127.0.0.1
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#15356(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:40 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><details><summary>TTL observation 2026-11-24T12:33:42.610636+00:00</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 39696
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		30	IN	A	10.3.0.246
+
+;; Query time: 1 msec
+;; SERVER: 127.0.0.1#15356(127.0.0.1)
+;; WHEN: Tue Nov 24 18:03:42 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
+</pre></details><h2>C · Firewall isolation</h2><p>Generated PF rules passed syntax validation. No firewall rules were activated. An administrator password and an independent client are required to prove the specified allow/block behavior and rollback. This extension remains incomplete.</p><details><summary>PF syntax validation</summary><pre>$ /sbin/pfctl -nf /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/generated/backend.pf
+pfctl: Use of -f option, could result in flushing of rules
+present in the main ruleset added by the system at startup.
+See /etc/pf.conf for further details.
+
+
+EXIT 0
+</pre></details><h2>D · Backend failure and recovery</h2><p>Eight baseline requests reached both backends. Backend A was stopped; all eight requests returned HTTP 200 from B. A restarted and both backend identities returned during bounded recovery polling after the failure window.</p><details><summary>Baseline · D-baseline-0</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:11 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: A
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;A&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><details><summary>Baseline · D-baseline-1</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:11 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: B
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;B&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><details><summary>Baseline · D-baseline-2</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:11 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: A
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;A&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><details><summary>Baseline · D-baseline-3</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:11 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: B
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;B&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><details><summary>Baseline · D-baseline-4</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:11 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: A
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;A&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><details><summary>Baseline · D-baseline-5</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:11 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: B
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;B&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><details><summary>Baseline · D-baseline-6</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:11 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: A
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;A&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><details><summary>Baseline · D-baseline-7</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:11 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: B
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;B&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><details><summary>A stopped · D-A-down-0</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:43 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: B
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;B&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><details><summary>A stopped · D-A-down-1</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:43 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: B
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;B&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><details><summary>A stopped · D-A-down-2</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:43 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: B
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;B&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><details><summary>A stopped · D-A-down-3</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:43 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: B
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;B&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><details><summary>A stopped · D-A-down-4</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:43 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: B
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;B&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><details><summary>A stopped · D-A-down-5</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:43 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: B
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;B&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><details><summary>A stopped · D-A-down-6</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:43 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: B
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;B&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><details><summary>A stopped · D-A-down-7</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:43 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: B
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;B&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><details><summary>A recovered · D-recovery-0</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:48 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: B
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;B&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><details><summary>A recovered · D-recovery-1</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:49 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: B
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;B&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><details><summary>A recovered · D-recovery-2</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:49 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: B
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;B&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><details><summary>A recovered · D-recovery-3</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:50 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: A
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;A&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><h2>E · DNS cutover</h2><p>Real A records changed from the loopback edge to a second Nginx listener on this same Mac’s LAN address. Client requests selected the address returned by DNS using curl --resolve, preserving TLS hostname verification. This makes the DNS-to-edge choice explicit; it does not test a browser’s resolver or existing connection migration.</p><details><summary>Old cached answer reaches primary edge</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:12 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: A
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;A&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><details><summary>New answer reaches standby edge</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:10.3.0.246 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:12 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: A
+Cache-Control: no-store
+X-Edge: standby
+
+{&quot;backend&quot;: &quot;A&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><h2>F · Troubleshooting rehearsal</h2><p>These faults were injected by the automated runner, not faculty. DNS timeout, wrong TCP port, untrusted certificate and unavailable upstreams produced distinguishable symptoms. Recovery returned HTTP 200.</p><details><summary>DNS fault</summary><pre>$ /usr/bin/dig @127.0.0.1 -p 15999 app.teamX.test +time=1 +tries=1
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 15999 app.teamX.test +time=1 +tries=1
+; (1 server found)
+;; global options: +cmd
+;; connection timed out; no servers could be reached
+
+EXIT 9
+</pre></details><details><summary>TCP fault</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18444:127.0.0.1 -sS -D - https://app.teamX.test:18444/api/status
+curl: (7) Failed to connect to app.teamX.test port 18444 after 0 ms: Couldn&#x27;t connect to server
+
+EXIT 7
+</pre></details><details><summary>TLS fault</summary><pre>$ /usr/bin/curl --noproxy * --resolve app.teamX.test:18443:127.0.0.1 --max-time 5 -v https://app.teamX.test:18443/api/status
+* Added app.teamX.test:18443:127.0.0.1 to DNS cache
+* Hostname app.teamX.test was found in DNS cache
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 127.0.0.1:18443...
+* Connected to app.teamX.test (127.0.0.1) port 18443
+* ALPN: curl offers h2,http/1.1
+* (304) (OUT), TLS handshake, Client hello (1):
+} [319 bytes data]
+*  CAfile: /etc/ssl/cert.pem
+*  CApath: none
+* (304) (IN), TLS handshake, Server hello (2):
+{ [122 bytes data]
+* (304) (IN), TLS handshake, Unknown (8):
+{ [53 bytes data]
+* (304) (IN), TLS handshake, Certificate (11):
+{ [821 bytes data]
+* SSL certificate problem: unable to get local issuer certificate
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+* Closing connection
+curl: (60) SSL certificate problem: unable to get local issuer certificate
+More details here: https://curl.se/docs/sslcerts.html
+
+curl failed to verify the legitimacy of the server and therefore could not
+establish a secure connection to it. To learn more about this situation and
+how to fix it, please visit the web page mentioned above.
+
+EXIT 60
+</pre></details><details><summary>Application fault</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 502 Bad Gateway
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:51 GMT
+Content-Type: text/html
+Content-Length: 158
+Connection: keep-alive
+X-Edge: primary
+
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;502 Bad Gateway&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;center&gt;&lt;h1&gt;502 Bad Gateway&lt;/h1&gt;&lt;/center&gt;
+&lt;hr&gt;&lt;center&gt;nginx/1.31.10&lt;/center&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+EXIT 0
+</pre></details><details><summary>Recovered application</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - https://app.teamX.test:18443/api/status
+HTTP/1.1 200 OK
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:57 GMT
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+X-Backend: A
+Cache-Control: no-store
+X-Edge: primary
+
+{&quot;backend&quot;: &quot;A&quot;, &quot;status&quot;: &quot;ok&quot;}
+EXIT 0
+</pre></details><details><summary>HTTP cache validation: 304</summary><pre>$ /usr/bin/curl --noproxy * --connect-timeout 2 --max-time 5 --cacert /Users/aad1tyayadav/Documents/Codex/2026-11-24/oka/outputs/CN_project/phase2/local-runtime/20261124T123305Z/certs/ca.crt --resolve app.teamX.test:18443:127.0.0.1 -sS -D - -H If-None-Match: &quot;3092ff7e802a9e35a7a613446a9585de&quot; https://app.teamX.test:18443/api/info
+HTTP/1.1 304 Not Modified
+Server: nginx/1.31.10
+Date: Tue, 24 Nov 2026 12:33:11 GMT
+Content-Type: application/json
+Connection: keep-alive
+X-Backend: B
+Cache-Control: max-age=60
+ETag: &quot;3092ff7e802a9e35a7a613446a9585de&quot;
+X-Edge: primary
+
+
+EXIT 0
+</pre></details><h2>Evidence integrity and cleanup</h2><p>All runner-started processes were terminated. No system DNS or firewall changes were made. SHA256SUMS hashes the evidence files. Private certificate keys are excluded from Git. See REPORT.md for remaining assignment requirements.</p></html>

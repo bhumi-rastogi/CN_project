@@ -1,0 +1,24 @@
+$ /usr/bin/dig @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+
+; <<>> DiG 9.10.6 <<>> @127.0.0.1 -p 15356 app.teamX.test A +time=2 +tries=4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 26458
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.teamX.test.			IN	A
+
+;; ANSWER SECTION:
+app.teamX.test.		29	IN	A	127.0.0.1
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#15356(127.0.0.1)
+;; WHEN: Tue Nov 24 18:01:56 IST 2026
+;; MSG SIZE  rcvd: 59
+
+
+EXIT 0
