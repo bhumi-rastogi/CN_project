@@ -1,0 +1,10 @@
+{
+  "primary_dns": "10.212.31.217",
+  "backup_dns": "10.212.31.195",
+  "edge": "10.212.31.195",
+  "standby_edge": "10.212.31.163",
+  "backend_host": "10.212.31.163",
+  "interface": "en0",
+  "ttl": 30,
+  "https_port": 8443
+}

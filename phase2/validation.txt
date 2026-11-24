@@ -1,0 +1,5 @@
+PASS backend A: real loopback HTTP status, identity, cache headers, ETag/304, 404
+PASS backend B: real loopback HTTP status, identity, cache headers, ETag/304, 404
+PASS primary: both resolvers agree on app/api addresses and TTL
+PASS standby: both resolvers agree on app/api addresses and TTL
+NOT RUN: nginx/dnsmasq syntax (binaries unavailable), PF activation, three-Mac DNS failover/cache/isolation/HA/cutover, screenshots and packet capture.

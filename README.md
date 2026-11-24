@@ -1259,3 +1259,8 @@ LAN
 ```
 
 The final system demonstrates how DNS, TCP, TLS, HTTPS, reverse proxying, load balancing, backend services, HTTP caching, and packet analysis work together as one private network service platform.
+
+
+## Phase 2 — Harden and Recover
+
+See [Phase 2 deployment and evidence guide](phase2/README.md) and [report status](phase2/REPORT.md). Phase 2 config generation preserves the Phase 1 artifacts; live multi-Mac validation is pending.
